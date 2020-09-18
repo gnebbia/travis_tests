@@ -1,6 +1,5 @@
 os: linux
 os: windows
-os: osx
 
 language: python
 
@@ -25,7 +24,6 @@ deploy:
   api_key: $RELEASE_TOKEN
   file_glob: true
   file: 
-    - dist/kb_v011_osx
     - dist/kb_v011_linux
     - dist/kb_v011_win*
   skip_cleanup: true
