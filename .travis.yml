@@ -1,4 +1,7 @@
 os: linux
+os: windows
+os: osx
+
 language: python
 
 sudo: false
@@ -15,13 +18,16 @@ script:
   - bash -c echo "Tests must go here"
 
 before_deploy:
-  - pyinstaller --onefile --paths kb/ kb/__main__.py -n kb
+  - ./deploy.sh
 
 deploy:
   provider: releases
   api_key: $RELEASE_TOKEN
   file_glob: true
-  file: dist/*
+  file: 
+    - dist/kb_v011_osx
+    - dist/kb_v011_linux
+    - dist/kb_v011_win*
   skip_cleanup: true
   draft: true
   on:
