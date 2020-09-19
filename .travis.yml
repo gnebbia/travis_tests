@@ -19,10 +19,7 @@ matrix:
       env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
 
 install:
- - "pip install -r requirements.txt"
- - "pip install ."
- - "pip install setuptools"
- - "pip install pyinstaller"
+  - ./install.sh
 
 script:
   - bash -c echo "Tests must go here"
