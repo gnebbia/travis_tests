@@ -16,7 +16,6 @@ matrix:
       env:  PATH=/c/Python37:/c/Python37/Scripts:$PATH
       before_install:
         - choco install python  # this install takes at least 1 min 30 sec
-        - python -m pip install --upgrade pip
 
 install:
   - ./install.sh
@@ -32,6 +31,7 @@ deploy:
   api_key: $RELEASE_TOKEN
   file_glob: true
   file: 
+    - dist/kb_v011_macos
     - dist/kb_v011_linux
     - dist/kb_v011_win*
   skip_cleanup: true
