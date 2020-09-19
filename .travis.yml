@@ -15,7 +15,9 @@ matrix:
       # python: 3.7         # 'python:' is ignored on Travis CI Windows
       env:  PATH=/c/Python37:/c/Python37/Scripts:$PATH
       before_install:
-        - choco install python  # this install takes at least 1 min 30 sec
+        - choco install python  --version 3.7 # this install takes at least 1 min 30 sec
+        - python --version
+        - python -m pip install --upgrade pip
 
 install:
   - ./install.sh
@@ -31,9 +33,9 @@ deploy:
   api_key: $RELEASE_TOKEN
   file_glob: true
   file: 
-    - dist/kb_v011_macos
+    - dist/kb_v011_osx
     - dist/kb_v011_linux
-    - dist/kb_v011_win*
+    - dist/kb_v011_win
   skip_cleanup: true
   draft: true
   on:
