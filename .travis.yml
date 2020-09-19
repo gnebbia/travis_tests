@@ -1,8 +1,11 @@
 language: python            # this works for Linux but is an error on macOS or Windows
 matrix:
   include:
-    - name: "Python 3.7 on Linux"
+    - name: "Python on Linux"
       python: 3.7           # this works for Linux but is ignored on macOS or Windows
+      python: 3.8           
+      python: 3.6
+      python: 3.5
     - name: "Python 3.7 on macOS"
       os: osx
       osx_image: xcode11    # Python 3.7.2 running on macOS 10.14.3
@@ -20,22 +23,22 @@ matrix:
         - python -m pip install --upgrade pip
 
 install:
-  - ./install.sh
+  - ./.travis/install.sh
 
 script:
-  - bash -c echo "Tests must go here"
+  - bash -c echo "Tests must go here" # pytest
 
 before_deploy:
-  - ./deploy.sh
+  - ./.travis/build_binaries.sh
 
 deploy:
   provider: releases
   api_key: $RELEASE_TOKEN
   file_glob: true
   file: 
-    - dist/kb_v011_osx
-    - dist/kb_v011_linux
-    - dist/kb_v011_win*
+    - dist/kb_$TRAVIS_TAG_osx
+    - dist/kb_$TRAVIS_TAG_linux
+    - dist/kb_$TRAVIS_TAG_win*
   skip_cleanup: true
   on:
     tags: true
