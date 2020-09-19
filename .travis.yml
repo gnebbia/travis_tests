@@ -35,7 +35,7 @@ deploy:
   file: 
     - dist/kb_v011_osx
     - dist/kb_v011_linux
-    - dist/kb_v011_win
+    - dist/kb_v011_win*
   skip_cleanup: true
   draft: true
   on:
