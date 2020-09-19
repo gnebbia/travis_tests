@@ -37,6 +37,6 @@ deploy:
     - dist/kb_v011_linux
     - dist/kb_v011_win*
   skip_cleanup: true
-  draft: true
   on:
     tags: true
+  name: $TRAVIS_TAG
