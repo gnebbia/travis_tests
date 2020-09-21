@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-# kb v0.1.0
+# kb v0.1.2
 # A knowledge base organizer
 # Copyright © 2020, gnc.
 # See /LICENSE for licensing information.
@@ -56,6 +56,9 @@ def add(args: Dict[str, str], config: Dict[str, str]):
                 continue
             add_file_to_kb(conn, args, config, fname)
     else:
+        # Get title for the new artifact
+        title = args["title"]
+
         # Assign a "default" category if not provided
         category = args["category"] or "default"
 
@@ -63,8 +66,6 @@ def add(args: Dict[str, str], config: Dict[str, str]):
         category_path = Path(config["PATH_KB_DATA"], category)
         category_path.mkdir(parents=True, exist_ok=True)
 
-        # Get title for the new artifact
-        title = args["title"]
 
         if not db.is_artifact_existing(conn, title, category):
             # If a file is provided, copy the file to kb directory
@@ -110,7 +111,8 @@ def add_file_to_kb(
                         title, category, tags, status, author
     config      -   the configuration dictionary that must contain
                     at least the following key:
-                     PATH_KB_DATA, the path to where artifact are stored
+                    PATH_KB_DATA, the path to where artifact are stored
+    fname       -   the path of the file to add to kb
     """
     title = args["title"] or fs.get_basename(fname)
     category = args["category"] or "default"

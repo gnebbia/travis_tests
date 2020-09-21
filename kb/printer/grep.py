@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-# kb v0.1.0
+# kb v0.1.2
 # A knowledge base organizer
 # Copyright © 2020, gnc.
 # See /LICENSE for licensing information.
@@ -235,8 +235,8 @@ def print_grep_result_verbose(
         else:
             print(result_line)
 
-
-def print_grep_matches(grep_matches, color=True):
+# This function still has to be implemented, this is just a placeholder
+def print_grep_matches(grep_matches, hits_list, color=True):
     """
     Print text associated to grep matches.
 

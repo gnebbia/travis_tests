@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-# kb v0.1.0
+# kb v0.1.2
 # A knowledge base organizer
 # Copyright © 2020, gnc.
 # See /LICENSE for licensing information.
@@ -22,6 +22,6 @@ class Artifact:
     category: str
     path: Optional[str] = None
     tags: Optional[str] = None
-    author: Optional[str] = None
     status: Optional[str] = None
+    author: Optional[str] = None
     template: Optional[str] = None
