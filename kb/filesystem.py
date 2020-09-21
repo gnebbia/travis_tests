@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-# kb v0.1.0
+# kb v0.1.2
 # A knowledge base organizer
 # Copyright © 2020, gnc.
 # See /LICENSE for licensing information.
@@ -115,7 +115,7 @@ def create_directory(directory: str) -> None:
     Arguments:
     directory    - the directory path to be created
     """
-    os.makedirs(directory, exist_ok=True)
+    os.makedirs(Path(directory), exist_ok=True)
 
 
 def is_directory(path: str) -> bool:

@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-# kb v0.1.0
+# kb v0.1.2
 # A knowledge base organizer
 # Copyright © 2020, gnc.
 # See /LICENSE for licensing information.
@@ -11,6 +11,7 @@ kb edit command module
 :License: GPLv3 (see /LICENSE).
 """
 
+import shlex
 from subprocess import call
 from typing import Dict
 from pathlib import Path
