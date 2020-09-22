@@ -52,15 +52,23 @@ def view(args: Dict[str, str], config: Dict[str, str]):
     # Check initialization
     initializer.init(config)
 
-
     color_mode = not args["no_color"]
     if args["id"]:
         view_by_id(args["id"], config, args["editor"], color_mode)
     elif args["title"]:
-        view_by_name(args["title"], args["category"], config, args["editor"], color_mode)
+        view_by_name(
+            args["title"],
+            args["category"],
+            config,
+            args["editor"],
+            color_mode)
 
 
-def view_by_id(id: int, config: Dict[str, str], open_editor: bool, color_mode: bool):
+def view_by_id(id: int,
+               config: Dict[str,
+                            str],
+               open_editor: bool,
+               color_mode: bool):
     """
     View the content of an artifact by id.
 
@@ -91,11 +99,12 @@ def view_by_id(id: int, config: Dict[str, str], open_editor: bool, color_mode: b
     artifact_path = Path(category_path, artifact.title)
 
     if open_editor:
-        with tempfile.NamedTemporaryFile() as tmpfname:
-            fs.copy_file(artifact_path, tmpfname.name)
+        tmpfname = fs.get_temp_filepath()
+        fs.copy_file(artifact_path, tmpfname)
 
-            shell_cmd = shlex.split(config["EDITOR"]) + [tmpfname.name]
-            call(shell_cmd)
+        shell_cmd = shlex.split(config["EDITOR"]) + [tmpfname]
+        call(shell_cmd)
+        fs.remove_file(tmpfname)
 
         sys.exit(0)
 
@@ -107,7 +116,12 @@ def view_by_id(id: int, config: Dict[str, str], open_editor: bool, color_mode: b
         opener.open_non_text_file(artifact_path)
 
 
-def view_by_name(title: str, category: str, config: Dict[str, str], open_editor: bool, color_mode: bool):
+def view_by_name(title: str,
+                 category: str,
+                 config: Dict[str,
+                              str],
+                 open_editor: bool,
+                 color_mode: bool):
     """
     View the content of an artifact by name, that is title/category
 
@@ -127,19 +141,20 @@ def view_by_name(title: str, category: str, config: Dict[str, str], open_editor:
     """
     conn = db.create_connection(config["PATH_KB_DB"])
     artifacts = db.get_artifacts_by_filter(conn, title=title,
-                                                category=category,
-                                                is_strict=True)
+                                           category=category,
+                                           is_strict=True)
     if len(artifacts) == 1:
         artifact = artifacts.pop()
         category_path = Path(config["PATH_KB_DATA"], artifact.category)
         artifact_path = Path(category_path, artifact.title)
 
         if open_editor:
-            with tempfile.NamedTemporaryFile() as tmpfname:
-                fs.copy_file(artifact_path, tmpfname.name)
+            tmpfname = fs.get_temp_filepath()
+            fs.copy_file(artifact_path, tmpfname)
 
-                shell_cmd = shlex.split(config["EDITOR"]) + [tmpfname.name]
-                call(shell_cmd)
+            shell_cmd = shlex.split(config["EDITOR"]) + [tmpfname]
+            call(shell_cmd)
+            fs.remove_file(tmpfname)
             sys.exit(0)
 
         # View File
