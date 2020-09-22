@@ -23,9 +23,7 @@ install:
   - ./.travis/install.sh
 
 script:
-  - python --version
-  - codespell . --ignore-words-list=hist --quiet-level=2
-  - flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+  - echo "TESTS HERE"
 
 before_deploy:
   - ./.travis/build_binaries.sh
